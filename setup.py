@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="tafnn",
+    name="afs",
     version="3.0",
     author="SYSTEM CORP.",
     author_email="contact@systemcorp.ai",

@@ -1,10 +1,23 @@
 import requests, json
 import datetime as dt
 from time import sleep
+import random as r
+import errno
 
+def uID(value='yes'):
+    if value == 'yes':
+        # generate randomrandomrandomrandomrandomrandomrandomrandom numbers for unique users
+        a = r.randint(r.randint(r.randint(1, 1000000), r.randint(1000001, 1000000000)), r.randint(r.randint(1000000001, 1000000000000), r.randint(1000000000000, 1000000000000000)))
+        b = r.randint(r.randint(r.randint(1, 1000000), r.randint(1000001, 1000000000)), r.randint(r.randint(1000000001, 1000000000000), r.randint(1000000000000, 1000000000000000)))
+        c = r.randint(r.randint(r.randint(1, 1000000), r.randint(1000001, 1000000000)), r.randint(r.randint(1000000001, 1000000000000), r.randint(1000000000000, 1000000000000000)))
+        random = str(a)+":"+str(b)+":"+str(c)
 
-
-
+        # writing into txt file, reading first line every time user calls the function, and deleting the second line
+        file = open("unique_id.txt", "w")
+        file.write(random)
+        #file.write("\n")
+    else:
+        print("Please pass 'yes' parameter to uID function to generate your unique id")
 
 def api(json_dump):
 
@@ -15,24 +28,17 @@ def api(json_dump):
     '''
 
     # declare endpoint_url for GET request
-    endpoint_url = "https://tafnn-flask.herokuapp.com"
+    #endpoint_url = "https://awayfromserver.herokuapp.com"
+    endpoint_url = "https://webhook.site/28caea85-89dd-4832-97f4-9fcfd49970f5"    
+    print("sent")
 
     # send GET request, followed by json_dump argument
-    requests.get(endpoint_url, json_dump)
-
-
-def unique_id(id):
-            
-    json_dump = json.dumps(str({1:{"Requesting Unique id":'0'}}))
-    api(json_dump)
-    
     requests.post(endpoint_url, json_dump)
-    requests.get(endpoint_url, json_dump)
 
 
 
 
-def teller( iteration=0, distribution=0, distrmessage='0', maxiter=0, maxitermessage='0', epochdistribution=0, epoch=0, epochmessage='0', testloss=0, valloss=0, maxdelay=0, maxdelaydelta=0, maxdelaymessage='0', profile_link='0'):
+def teller(iteration=0, distribution=0, distrmessage='', maxiter=0, maxitermessage='', epochdistribution=0, epoch=0, epochmessage='', testloss=0, valloss=0, maxdelay=0, maxdelaydelta=0, maxdelaymessage=''):
 
     '''
         'teller' function takes maximum of 14 arguments. Default values are 0's.
@@ -68,30 +74,42 @@ def teller( iteration=0, distribution=0, distrmessage='0', maxiter=0, maxitermes
 
         $maxdelaymessage is a message for you to receive after reaching maximum time of delay.  type = string.
 
-        $profile_link is a link of your Facebook profile, that will be used by the chatbot to send you all the information later on.
-        type = string.
 
     '''
+    try:
+        f = open("unique_id.txt", "r")
+        random = f.read()
+        print(random)
+
+    except FileNotFoundError:
+        print("Please pass 'yes' parameter to uID function to generate your unique id")
 
     # check if iteration != 0, and != maxiter, and iteration % distribution = 0.
     if iteration != 0 and iteration != maxiter and iteration%distribution == 0:
-        json_dump = json.dumps(str({1:{str(iteration):str(distrmessage)}, 2:{'Profile Link':str(profile_link)}}))
+        json_dump = json.dumps(str({1:{str(iteration):str(distrmessage)}, 2:{'Unique Id':str(random)}}))
         api(json_dump)
     # check if epoch != 0, and iteration != maxiter, and epoch % epochdistribution = 0.
     if epoch != 0 and iteration != maxiter and epoch%epochdistribution == 0:
-        json_dump = json.dumps(str({1:{(epoch):str(epochmessage), 'Test Loss':str(testloss)}, 2:{'Validation Loss':str(valloss), 'Profile Link':str(profile_link)}}))
+        json_dump = json.dumps(str({1:{(epoch):str(epochmessage), 'Test Loss':str(testloss)}, 2:{'Validation Loss':str(valloss), 'Unique Id':str(random)}}))
         api(json_dump)
     # check if iteration != 0, and != maxiter, and iteration % distribution = 0, epoch != 0, epoch % epochdistribution = 0.
     if iteration != 0 and iteration != maxiter and iteration%distribution == 0 and epoch != 0 and epoch%epochdistribution == 0:
-        json_dump = json.dumps(str({1:{str(iteration):str(distrmessage), str(epoch):str(epochmessage)}, 2:{'Test Loss':str(testloss), 'Validation Loss':str(valloss)}, 3:{'Profile Link':str(profile_link)}}))
+        json_dump = json.dumps(str({1:{str(iteration):str(distrmessage), str(epoch):str(epochmessage)}, 2:{'Test Loss':str(testloss), 'Validation Loss':str(valloss)}, 3:{'Unique Id':str(random)}}))
         api(json_dump)
     # check if iterations = maximum amount of iterations, i.e. "training the model has been finished"
     if iteration == maxiter:
-        json_dump = json.dumps(str({1:{str(iteration):distrmessage}, 2:{str(epoch):str(epochmessage)}, 3:{str(maxiter):maxitermessage, 'Test Loss':str(testloss)}, 3:{'Validation Loss':str(valloss), 'Profile Link':profile_link}}))
+        print("i'm here")
+        print(maxitermessage)
+        json_dump = json.dumps(str({1:{str(iteration):distrmessage}, 2:{str(epoch):str(epochmessage)}, 3:{str(maxiter):maxitermessage, 'Test Loss':str(testloss)}, 4:{'Validation Loss':str(valloss), 'Unique Id':random}}))
         api(json_dump)
 
 
 if __name__ == '__main__':
+    import requests, json
+    import datetime as dt
+    from time import sleep
+    import random as r
     # declare endpoint_url for GET request
-    endpoint_url = "https://awayfromserver.herokuapp.com"
+    #endpoint_url = "https://awayfromserver.herokuapp.com"
+    endpoint_url = "https://webhook.site/28caea85-89dd-4832-97f4-9fcfd49970f5"
 

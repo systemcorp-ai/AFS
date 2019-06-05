@@ -96,8 +96,6 @@ def teller(iteration=0, distribution=0, distrmessage='', maxiter=0, maxitermessa
         api(json_dump)
     # check if iterations = maximum amount of iterations, i.e. "training the model has been finished"
     if iteration == maxiter:
-        print("i'm here")
-        print(maxitermessage)
         json_dump = json.dumps(str({1:{str(iteration):distrmessage}, 2:{str(epoch):str(epochmessage)}, 3:{str(maxiter):maxitermessage, 'Test Loss':str(testloss)}, 4:{'Validation Loss':str(valloss), 'Unique Id':random}}))
         api(json_dump)
 

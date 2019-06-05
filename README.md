@@ -55,6 +55,20 @@ $ import AFS as afs
 $ afs.teller(arg1, arg2)
 ```
 
+Then, reach uID function, and pass the 'yes' string, that will basically create unique id for you, by which you'll then verify your session with the chatbot.
+
+```sh
+$ afs.uID("yes")
+```
+After the execution of the training loop, this line will print unique ID for you that is generated super randomly to minimize the similarities.
+
+It'll look like this: 
+
+```sh
+$ Your unique ID is ---  231409296064663:68137457840134:27374860406350
+```
+Copy the unique ID, and text the AFS bot the plain text to verify your session.
+And, it's all done.
 
 
 # Arguments

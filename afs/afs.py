@@ -77,7 +77,7 @@ def teller(iteration=0, distribution=0, distrmessage='', maxiter=0, maxitermessa
     try:
         f = open("unique_id.txt", "r")
         random = f.read()
-        print(random)
+        print("Your unique ID is --- ", random)
 
     except FileNotFoundError:
         print("Please pass 'yes' parameter to uID function to generate your unique id")

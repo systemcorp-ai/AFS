@@ -106,8 +106,6 @@ And, it's all done.
 
   $maxdelaymessage is a message for you to receive after reaching maximum time of delay.  type = string.
 
-  $profile_link is a link of your Facebook profile, that will be used by the agent to send you all the information later on.
-  type = string.
 ```
 
 

@@ -28,9 +28,7 @@ def api(json_dump):
     '''
 
     # declare endpoint_url for GET request
-    #endpoint_url = "https://awayfromserver.herokuapp.com"
-    endpoint_url = "https://webhook.site/28caea85-89dd-4832-97f4-9fcfd49970f5"    
-    print("sent")
+    endpoint_url = "https://awayfromserver.herokuapp.com"
 
     # send GET request, followed by json_dump argument
     requests.post(endpoint_url, json_dump)
@@ -109,7 +107,7 @@ if __name__ == '__main__':
     import datetime as dt
     from time import sleep
     import random as r
+    
     # declare endpoint_url for GET request
-    #endpoint_url = "https://awayfromserver.herokuapp.com"
-    endpoint_url = "https://webhook.site/28caea85-89dd-4832-97f4-9fcfd49970f5"
+    endpoint_url = "https://awayfromserver.herokuapp.com"
 

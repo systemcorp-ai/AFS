@@ -83,11 +83,11 @@ def teller(iteration='default', distribution='default', maxiter='default', epoch
             json_dump = json.dumps([{'Quantity':'3'},{'Iteration':iteration}, {'Unique ID':random}])
             api(json_dump)
         # check if epoch != 0, and iteration != maxiter, and epoch % epochdistribution = 0.
-        if epoch != 0 and iteration <= maxiter and epoch%epochdistribution == 0:
+        elif epoch != 0 and iteration <= maxiter and epoch%epochdistribution == 0:
             json_dump = json.dumps([{'Quantity':'5'}, {'Epoch':epoch}, {'TestLoss':testloss}, {'ValLoss':valloss}, {'Unique ID':random}])
             api(json_dump)
         # check if iteration != 0, and != maxiter, and iteration % distribution = 0, epoch != 0, epoch % epochdistribution = 0.
-        if iteration != 0 and iteration <= maxiter and iteration%distribution == 0 and epoch != 0 and epoch%epochdistribution == 0:
+        elif iteration != 0 and iteration <= maxiter and iteration%distribution == 0 and epoch != 0 and epoch%epochdistribution == 0:
             json_dump = json.dumps([{'Quantity':'6'}, {'Iteration':iteration}, {'Epoch':epoch}, {'TestLoss':testloss}, {'ValLoss':valloss}, {'Unique ID':random}])
             api(json_dump)
         # check if iterations = maximum amount of iterations, i.e. "training the model has been finished"

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="afs",
-    version="4.0",
+    version="5.0",
     author="SYSTEM CORP.",
     author_email="contact@systemcorp.ai",
     description="Agent for Neural Network training supervision",

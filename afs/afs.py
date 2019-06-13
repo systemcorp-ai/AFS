@@ -4,6 +4,8 @@ from time import sleep
 import random as r
 import errno
 
+
+
 def uID(value='yes'):
     if value == 'yes':
         # generate randomrandomrandomrandomrandomrandomrandomrandom numbers for unique users
@@ -16,6 +18,8 @@ def uID(value='yes'):
         file = open("unique_id.txt", "w")
         file.write(random)
         #file.write("\n")
+        print('Your Unique Number is --- ', random)
+        print('Write this UID to AFS Bot on messenger for verification.')
     else:
         print("Please pass 'yes' parameter to uID function to generate your unique id")
 
@@ -28,7 +32,7 @@ def api(json_dump):
     '''
 
     # declare endpoint_url for GET request
-    endpoint_url = "https://awayfromserver.herokuapp.com"
+    endpoint_url = "https://awayfromserver.herokuapp.com/"
 
     # send GET request, followed by json_dump argument
     requests.post(endpoint_url, json_dump)
@@ -36,7 +40,7 @@ def api(json_dump):
 
 
 
-def teller(iteration=0, distribution=0, distrmessage='', maxiter=0, maxitermessage='', epochdistribution=0, epoch=0, epochmessage='', testloss=0, valloss=0, maxdelay=0, maxdelaydelta=0, maxdelaymessage=''):
+def teller(iteration='default', distribution='default', maxiter='default', epochdistribution='default', epoch='default', testloss='default', valloss='default', maxdelay='default', maxdelaydelta='default', maxdelaymessage='default'):
 
     '''
         'teller' function takes maximum of 14 arguments. Default values are 0's.
@@ -45,18 +49,12 @@ def teller(iteration=0, distribution=0, distrmessage='', maxiter=0, maxitermessa
 
         $distribution argument is basically a divider, for every how many iterations do you need to send the GET request. type = number.
 
-        $distrmessage - your message after reaching specific number of iterations, when iterations % distribution == 0. type = string.
-
         $maxiter is a maximum of iterations, after which the model finishes training. Make sure to send +1, as long as
         python takes the 'y' from range(x , y) and finishes the loop when technically y = (y - 1). type = number.
-
-        $maxitermessage is a message you want to send after reaching maxiter size. type = string.
 
         $epochdistribution is the same as 'distribution' argument, but for epochs. type = number.
 
         $epoch counts epochs. type = number.
-
-        $epochmessage is sended after reaching number of epochs when epochs % epochdistribution == 0 . type = string
 
         $testloss takes test loss as an information. type = number.
 
@@ -70,35 +68,34 @@ def teller(iteration=0, distribution=0, distrmessage='', maxiter=0, maxitermessa
         In case you're saving checkpoint for every certain number of iterations, and it takes longer time than average iteration
         time, that's where you use 'maxdelaydelta' argument. type = number.
 
-        $maxdelaymessage is a message for you to receive after reaching maximum time of delay.  type = string.
-
 
     '''
     try:
         f = open("unique_id.txt", "r")
         random = f.read()
-        print("Your unique ID is --- ", random)
 
     except FileNotFoundError:
         print("Please pass 'yes' parameter to uID function to generate your unique id")
 
-    # check if iteration != 0, and != maxiter, and iteration % distribution = 0.
-    if iteration != 0 and iteration != maxiter and iteration%distribution == 0:
-        json_dump = json.dumps(str({1:{str(iteration):str(distrmessage)}, 2:{'Unique Id':str(random)}}))
-        api(json_dump)
-    # check if epoch != 0, and iteration != maxiter, and epoch % epochdistribution = 0.
-    if epoch != 0 and iteration != maxiter and epoch%epochdistribution == 0:
-        json_dump = json.dumps(str({1:{(epoch):str(epochmessage), 'Test Loss':str(testloss)}, 2:{'Validation Loss':str(valloss), 'Unique Id':str(random)}}))
-        api(json_dump)
-    # check if iteration != 0, and != maxiter, and iteration % distribution = 0, epoch != 0, epoch % epochdistribution = 0.
-    if iteration != 0 and iteration != maxiter and iteration%distribution == 0 and epoch != 0 and epoch%epochdistribution == 0:
-        json_dump = json.dumps(str({1:{str(iteration):str(distrmessage), str(epoch):str(epochmessage)}, 2:{'Test Loss':str(testloss), 'Validation Loss':str(valloss)}, 3:{'Unique Id':str(random)}}))
-        api(json_dump)
-    # check if iterations = maximum amount of iterations, i.e. "training the model has been finished"
-    if iteration == maxiter:
-        json_dump = json.dumps(str({1:{str(iteration):distrmessage}, 2:{str(epoch):str(epochmessage)}, 3:{str(maxiter):maxitermessage, 'Test Loss':str(testloss)}, 4:{'Validation Loss':str(valloss), 'Unique Id':random}}))
-        api(json_dump)
-
+    if iteration != 'default' and distribution != 'default' and maxiter != 'default':
+        # check if iteration != 0, and != maxiter, and iteration % distribution = 0.
+        if iteration != 0 and iteration <= maxiter and iteration%distribution == 0:
+            json_dump = json.dumps([{'Quantity':'3'},{'Iteration':iteration}, {'Unique ID':random}])
+            api(json_dump)
+        # check if epoch != 0, and iteration != maxiter, and epoch % epochdistribution = 0.
+        if epoch != 0 and iteration <= maxiter and epoch%epochdistribution == 0:
+            json_dump = json.dumps([{'Quantity':'5'}, {'Epoch':epoch}, {'TestLoss':testloss}, {'ValLoss':valloss}, {'Unique ID':random}])
+            api(json_dump)
+        # check if iteration != 0, and != maxiter, and iteration % distribution = 0, epoch != 0, epoch % epochdistribution = 0.
+        if iteration != 0 and iteration <= maxiter and iteration%distribution == 0 and epoch != 0 and epoch%epochdistribution == 0:
+            json_dump = json.dumps([{'Quantity':'6'}, {'Iteration':iteration}, {'Epoch':epoch}, {'TestLoss':testloss}, {'ValLoss':valloss}, {'Unique ID':random}])
+            api(json_dump)
+        # check if iterations = maximum amount of iterations, i.e. "training the model has been finished"
+        if iteration == maxiter:
+            json_dump = json.dumps([{'Quantity':'7'}, {'Iteration':iteration}, {'Epoch':epoch}, {'MaxIter':'Training model has been finished.'}, {'TestLoss':testloss}, {'ValLoss':valloss}, {'Unique ID':random}])
+            api(json_dump)
+    else:
+        print("You're not passing Iteration, Distribution and Maxiter variables correctly. Requests won't be sent.")
 
 if __name__ == '__main__':
     import requests, json
@@ -107,5 +104,5 @@ if __name__ == '__main__':
     import random as r
     
     # declare endpoint_url for GET request
-    endpoint_url = "https://awayfromserver.herokuapp.com"
+    endpoint_url = "https://awayfromserver.herokuapp.com/"
 

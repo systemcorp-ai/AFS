@@ -27,10 +27,10 @@ Social Media platforms.
 
 ### Used Frameworks & Libraries
 
-AFS is built totally on Python technology.
+AFS is built totally on Python & Node.JS.
 
 * [Python 3] - for library building
-* [Flask] - for Back-End
+* [Node.JS] - for Back-End
 
 
 ### Installation
@@ -75,36 +75,22 @@ And, it's all done.
 
 ```sh
 
-  $iteration argument is for counting iterations. type = number.
+'teller' function takes maximum of 14 arguments. Default values are 0s.
 
-  $distribution argument is basically a divider, for every how many iterations do you need to send the GET request. type = number.
+$iteration argument is for counting iterations. type = number.
 
-  $distrmessage - your message after reaching specific number of iterations, when iterations % distribution == 0. type = string.
+$distribution argument is basically a divider, for every how many iterations do you need to send the GET request. type = number.
 
-  $maxiter is a maximum of iterations, after which the model finishes training. Make sure to send +1, as long as
-  python takes the 'y' from range(x , y) and finishes the loop when technically y = (y - 1). type = number.
+$maxiter is a maximum of iterations, after which the model finishes training. type = number.
 
-  $maxitermessage is a message you want to send after reaching maxiter size. type = string.
+$epochdistribution is the same as 'distribution' argument, but for epochs. type = number.
 
-  $epochdistribution is the same as 'distribution' argument, but for epochs. type = number.
+$epoch counts epochs. type = number.
 
-  $epoch counts epochs. type = number.
+$testloss takes test loss as an information. type = number.
 
-  $epochmessage is sended after reaching number of epochs when epochs % epochdistribution == 0 . type = string
+$valloss takes validation loss as an information. type = number.
 
-  $testloss takes test loss as an information. type = number.
-
-  $valloss takes validation loss as an information. type = number.
-
-  $maxdelay is maximum amount of delay, after which server will automatically tell you that something might be crashed,
-  and you've to check the server. type = number.
-
-  $maxdelaydelta is a maximum dynamic change of maxdelay. For instance, if maxdelay = 5 (5 seconds), and maxdelaydelta = 1,
-  you won't be notified until the request is delayed for more than 6 seconds.
-  In case you're saving checkpoint for every certain number of iterations, and it takes longer time than average iteration
-  time, that's where you use 'maxdelaydelta' argument. type = number.
-
-  $maxdelaymessage is a message for you to receive after reaching maximum time of delay.  type = string.
 
 ```
 
@@ -123,10 +109,6 @@ The API sends the JSON array, that is basically stringified version of combinati
   - [Discord]
 
 
-
-### TODOs
-
-    - Finish working on Back-End for Facebook Messenger.
 
 
 License
